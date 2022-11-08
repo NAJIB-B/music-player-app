@@ -4,14 +4,19 @@ import ellipse3 from "../../assets/Ellipse 3.png";
 import ellipse4 from "../../assets/Ellipse 4.png";
 import ellipse5 from "../../assets/Ellipse 5.png";
 import ellipse6 from "../../assets/Ellipse 6.png";
-import playBtn from "../../assets/playBtn.svg";
+import topChartPic1 from "../../assets/topChartPic1.png";
+import NewReleases from "../../components/new-releases/new-releases";
+import Popular from "../../components/popular/popular.component";
 import { Icon } from "@iconify/react";
 import { ReactComponent as Dotdot } from "../../assets/DotDotImage.svg";
-
+import { useSelector } from "react-redux";
+import { selectAlbums } from "../../store/music/music.selector";
+import TopChartAlbumBar from "../../components/topChartAlbumBar/topChartAlbumBar.component";
 const Home = () => {
+  const albums = useSelector(selectAlbums);
   return (
     <>
-      <div className="flex flex-row">
+      <div className="flex flex-row mt-4">
         <div className="basis-[60%]  w-10">
           <div className="bg-[#609EAF] rounded-[20px]">
             <div className="flex flex-row">
@@ -62,7 +67,7 @@ const Home = () => {
                     />
                   </div>
                   <div>
-                    <p className="text-[1.8rem]">33k Likes</p>{" "}
+                    <p className="text-[1.8rem] ml-2">33k Likes</p>{" "}
                   </div>
                 </div>
               </div>
@@ -78,9 +83,18 @@ const Home = () => {
           </div>
         </div>
         <div className="basis-[40%]">
-          <h2 className="text-[3rem] text-white font-bold">Top charts</h2>
+          <div className="ml-10">
+            <h2 className="text-[3rem] text-white font-bold">Top charts</h2>
+            {albums.map((album, i) => {
+              return (
+                <TopChartAlbumBar album={album} key={i}></TopChartAlbumBar>
+              );
+            })}
+          </div>
         </div>
       </div>
+      <NewReleases></NewReleases>
+      <Popular></Popular>
     </>
   );
 };
